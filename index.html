@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Bộ 100 câu ôn tập Quiz 2 đại số tuyến tính SC1004/CX1104, có tự chấm và giải thích.">
+<title>Ôn tập Quiz 2 · SC1004</title>
+<style>
+:root{color-scheme:light;--ink:#172033;--muted:#667085;--line:#e4e8ef;--blue:#3157d5;--pale:#f4f6fb;--green:#147d53;--red:#bf3434}*{box-sizing:border-box}body{margin:0;background:#f6f7fb;color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}.wrap{max-width:930px;margin:auto;padding:28px 18px 60px}header{margin-bottom:18px}h1{font-size:clamp(27px,4vw,38px);line-height:1.15;margin:0 0 8px}h2{margin:0 0 12px;font-size:21px}.sub,.muted{color:var(--muted)}.sub{margin:0}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.toolbar button,.action{border:0;border-radius:10px;padding:11px 16px;background:var(--blue);color:white;font-weight:700;cursor:pointer}.toolbar button.secondary{background:#e7eaf2;color:var(--ink)}.progressbox,.card,.result{background:white;border:1px solid var(--line);border-radius:16px;box-shadow:0 3px 14px #1c29400a}.progressbox{padding:14px 16px;margin:15px 0}.progressrow{display:flex;justify-content:space-between;gap:12px;font-weight:650}.bar{height:9px;background:#edf0f6;border-radius:8px;overflow:hidden;margin-top:9px}.bar>i{display:block;height:100%;width:0;background:var(--blue);transition:width .2s}.card{padding:20px;margin:14px 0;scroll-margin-top:14px}.qhead{display:flex;justify-content:space-between;gap:14px;align-items:start}.qnum{font-weight:800;color:var(--blue);white-space:nowrap}.topic{font-size:12px;background:#eef1ff;color:#344ab2;padding:4px 9px;border-radius:99px;white-space:nowrap}.stem{font-size:17px;font-weight:650;margin:10px 0 14px}.choices{display:grid;gap:8px}.choice{border:1px solid var(--line);border-radius:11px;padding:10px 12px;display:flex;gap:10px;align-items:start;cursor:pointer}.choice:hover{border-color:#91a1e9;background:#fafaff}.choice input{margin-top:5px;accent-color:var(--blue)}.choice:has(input:checked){border-color:var(--blue);background:#f3f5ff}.feedback{display:none;padding:12px 14px;margin-top:13px;border-radius:10px}.feedback.show{display:block}.feedback.ok{background:#eaf7f0;color:#115f40}.feedback.no{background:#fff0ef;color:#8c2626}.bottom{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}.result{display:none;padding:22px;margin-top:18px}.result.show{display:block}.score{font-size:30px;font-weight:850}.metrics{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}.pill{padding:6px 10px;border-radius:99px;background:var(--pale)}.reviewlist{padding-left:22px}.reviewlist li{margin:7px 0}.small{font-size:13px}.error{outline:2px solid #df7777}@media(max-width:600px){.card{padding:16px}.qhead{align-items:center}}
+</style></head>
+<body><main class="wrap"><header><h1>Ôn tập Quiz 2 · SC1004</h1><p class="sub">100 câu trắc nghiệm · tự chấm · giải thích đáp án. Làm trực tiếp trên trang; tiến độ được lưu trên thiết bị này.</p></header>
+<div class="toolbar"><button id="submitTop">Nộp bài</button><button class="secondary" id="resetTop">Làm lại từ đầu</button><button class="secondary" id="filterTop">Chỉ xem câu chưa làm</button></div>
+<section class="progressbox"><div class="progressrow"><span id="progressText">Đã trả lời 0/100</span><span id="answeredText">0%</span></div><div class="bar"><i id="progressBar"></i></div></section>
+<div id="quiz"></div><div class="bottom"><button class="action" id="submitBottom">Nộp bài và xem kết quả</button><button class="action" style="background:#e7eaf2;color:#172033" id="resetBottom">Xóa đáp án</button></div>
+<section class="result" id="result" aria-live="polite"></section><p class="muted small">Phạm vi: Chương 6 (trực giao, QR), Chương 7 (least squares), Chương 8A (số phức, DFT), Chương 8 (trị riêng, diagonalisation, lũy thừa và đổi cơ sở). Không gồm MATLAB và SVD.</p></main>
+<script>
+// Each item: topic, question, four choices, correct choice index, explanation.
+const Q=[];
+function add(t,s,a,b,c,d,k,e){Q.push({t,s,o:[a,b,c,d],k,e})}
+// Ch 6: orthogonality, projection, orthonormal bases, QR (1–25)
+add('Ch 6 · Trực giao','u=(1,2), v=(2,−1). Kết luận nào đúng?','Trực giao vì uᵀv=0','Trực giao vì cùng chuẩn','Không trực giao vì uᵀv=2','Không trực giao vì khác chiều',0,'uᵀv=1·2+2·(−1)=0.');
+add('Ch 6 · Chuẩn','|| (3,4) || bằng bao nhiêu?','5','7','25','√7',0,'Chuẩn là √(3²+4²)=5.');
+add('Ch 6 · Chuẩn hoá','Vectơ đơn vị cùng hướng với (−3,4) là gì?','(−3/5,4/5)','(−3/25,4/25)','(3/5,4/5)','(−4/5,3/5)',0,'Chuẩn của vectơ là 5; chia từng thành phần cho 5.');
+add('Ch 6 · Góc','Hai vectơ khác không có tích vô hướng âm. Góc giữa chúng là:','Nhọn','Vuông','Tù','Không xác định',2,'cos θ có cùng dấu với tích vô hướng; âm nghĩa là góc tù.');
+add('Ch 6 · Chiếu lên đường thẳng','Chiếu y=(3,4) lên u=(1,0) được vectơ nào?','(3,0)','(0,4)','(3,4)','(1,0)',0,'projᵤ(y)=u(uᵀy)/(uᵀu)=(3,0).');
+add('Ch 6 · Chiếu lên đường thẳng','Chiếu y=(2,1) lên u=(1,1) được:','(3/2,3/2)','(1,1)','(2,0)','(1/2,1/2)',0,'Hệ số=(uᵀy)/(uᵀu)=3/2.');
+add('Ch 6 · Phần dư','Với y=(2,1), p=(3/2,3/2) là hình chiếu lên span(1,1). Phần dư e=y−p là:','(1/2,−1/2)','(−1/2,1/2)','(7/2,5/2)','(0,0)',0,'Lấy y−p; kiểm tra (1,1)·e=0.');
+add('Ch 6 · Định lý Pythagoras','Nếu p ⟂ e và y=p+e thì:','||y||²=||p||²+||e||²','||y||=||p||+||e||','||y||²=||p||²−||e||²','||y||=||p||−||e||',0,'Hai thành phần vuông góc nên bình phương chuẩn cộng theo Pythagoras.');
+add('Ch 6 · Bổ sung trực giao','Col(A)⊥ bằng không gian nào?','Nul(Aᵀ)','Nul(A)','Row(A)','Col(Aᵀ)',0,'Trong Rᵐ, z ⟂ mọi cột A khi và chỉ khi Aᵀz=0.');
+add('Ch 6 · Bổ sung trực giao','Row(A)⊥ bằng:','Nul(A)','Nul(Aᵀ)','Col(A)','Row(Aᵀ)',0,'x vuông góc mọi hàng của A khi Ax=0.');
+add('Ch 6 · Độc lập','Một tập gồm các vectơ khác không, đôi một trực giao thì:','Độc lập tuyến tính','Luôn là cơ sở Rⁿ','Luôn có cùng chuẩn','Luôn có n vectơ',0,'Lấy tích vô hướng với từng vectơ sẽ buộc mỗi hệ số trong tổ hợp bằng 0.');
+add('Ch 6 · Cơ sở trực chuẩn','Q có các cột trực chuẩn. Đẳng thức luôn đúng là:','QᵀQ=I','QQᵀ=I với mọi Q','Qᵀ=Q','det(Q)=0',0,'Tích vô hướng giữa các cột tạo ma trận đơn vị.');
+add('Ch 6 · Q cao','Q là ma trận 5×2 có cột trực chuẩn. QQᵀ là:','Phép chiếu lên Col(Q)','Ma trận đơn vị 5×5','Phép chiếu lên Nul(Q)','Ma trận không',0,'QQᵀ chiếu lên không gian cột; hạng tối đa 2 nên không thể là I₅.');
+add('Ch 6 · Toạ độ','Nếu Q có cột trực chuẩn tạo cơ sở cho W thì toạ độ của proj_W(b) trong cơ sở đó là:','Qᵀb','QQᵀb','(I−QQᵀ)b','Qb',0,'Hệ số chiếu lên mỗi cột qᵢ là qᵢᵀb.');
+add('Ch 6 · Phần dư','Với Q có cột trực chuẩn, phần dư khi chiếu b lên Col(Q) là:','(I−QQᵀ)b','QQᵀb','Qᵀb','(I−QᵀQ)b',0,'b trừ hình chiếu QQᵀb.');
+add('Ch 6 · Ma trận chiếu','Ma trận chiếu trực giao Π có tính chất nào?','Πᵀ=Π và Π²=Π','Πᵀ=−Π và Π²=I','Π luôn khả nghịch','Π²=0',0,'Phép chiếu đối xứng và chiếu hai lần giống chiếu một lần.');
+add('Ch 6 · Gram–Schmidt','Trong bước đầu Gram–Schmidt với a₁≠0, q₁ là:','a₁/||a₁||','a₁ᵀa₁','||a₁||a₁','0',0,'Chuẩn hoá vectơ đầu tiên.');
+add('Ch 6 · Gram–Schmidt','Trong bước 2, sau khi có q₁, ta lấy v₂ bằng:','a₂−q₁(q₁ᵀa₂)','a₂+q₁(q₁ᵀa₂)','q₁−a₂','a₂/(q₁ᵀa₂)',0,'Trừ thành phần của a₂ theo hướng q₁.');
+add('Ch 6 · QR','Trong phân tích QR rút gọn A=QR, Q có các cột trực chuẩn và R thường là:','Tam giác trên','Tam giác dưới','Đối xứng','Trực giao',0,'Gram–Schmidt tạo R tam giác trên.');
+add('Ch 6 · QR','Nếu A có kích thước 4×2, QR rút gọn có kích thước Q,R lần lượt là:','4×2, 2×2','4×4, 4×2','2×4, 2×2','4×2, 4×4',0,'Q chứa 2 cột trực chuẩn; R là ma trận vuông bậc 2.');
+add('Ch 6 · QR','Khi A có hạng cột đầy đủ và A=QR, nghiệm bình phương tối thiểu có thể tìm bằng:','Rx=Qᵀb','Qx=Rᵀb','RᵀRx=b','QᵀQx=0',0,'Nhân Qᵀ hai vế gần đúng Qx≈b cho Rx=Qᵀb.');
+add('Ch 6 · Khoảng cách','Khoảng cách từ y đến W bằng:','||y−proj_W(y)||','||proj_W(y)||','yᵀproj_W(y)','||y||−||proj_W(y)||',0,'Phần dư vuông góc W; khoảng cách là chuẩn phần dư.');
+add('Ch 6 · Bất đẳng thức','Cauchy–Schwarz phát biểu:','|uᵀv|≤||u||||v||','uᵀv≥||u||||v||','||u+v||=||u||+||v||','||u||≤uᵀu',0,'Giá trị tuyệt đối tích vô hướng bị chặn bởi tích hai chuẩn.');
+add('Ch 6 · Chuẩn','Khoảng cách giữa x và y trong Rⁿ là:','||x−y||','xᵀy','||x+y||','||x||−||y||',0,'Khoảng cách Euclid là chuẩn của hiệu hai điểm.');
+add('Ch 6 · Hình chiếu','Nếu y đã nằm trong W thì proj_W(y)=:','y','0','−y','Không xác định',0,'Phép chiếu giữ nguyên mọi vectơ thuộc không gian đích.');
+// Ch 7: least squares (26–45)
+add('Ch 7 · Least squares','Khi Ax=b vô nghiệm, nghiệm bình phương tối thiểu x̂ tối thiểu hoá:','||Ax−b||','||x||','det(A)','||A−b||',0,'Đó là nghiệm làm nhỏ nhất chuẩn phần dư.');
+add('Ch 7 · Phương trình chuẩn','Phương trình chuẩn cho bài toán min ||Ax−b||² là:','AᵀAx̂=Aᵀb','AAᵀx̂=b','Ax̂=Aᵀb','Aᵀx̂=Ab',0,'Đạo hàm theo x hoặc điều kiện phần dư trực giao Col(A) cho công thức này.');
+add('Ch 7 · Điều kiện','Nghiệm bình phương tối thiểu thỏa phần dư r=b−Ax̂:','Aᵀr=0','Ar=0','r=0 luôn','Aᵀr=b',0,'Phần dư trực giao mọi cột của A.');
+add('Ch 7 · Nghiệm duy nhất','Điều kiện bảo đảm nghiệm least squares duy nhất là:','Các cột A độc lập tuyến tính','A có nhiều hàng hơn cột','b khác 0','A đối xứng',0,'AᵀA khi đó khả nghịch.');
+add('Ch 7 · Công thức','Nếu A có hạng cột đầy đủ, nghiệm least squares là:','(AᵀA)⁻¹Aᵀb','Aᵀ(AAᵀ)⁻¹b','A⁻¹b với mọi A','(AAᵀ)⁻¹Ab',0,'Giải phương trình chuẩn bằng cách nhân (AᵀA)⁻¹.');
+add('Ch 7 · Hình chiếu','Vectơ fitted b̂ trong Col(A) là:','A x̂','x̂','b−x̂','Aᵀb',0,'x̂ là hệ số; A x̂ là vectơ được xấp xỉ b.');
+add('Ch 7 · Chiếu','Nếu A có hạng cột đầy đủ, ma trận chiếu lên Col(A) là:','A(AᵀA)⁻¹Aᵀ','(AᵀA)⁻¹Aᵀ','AᵀA','A⁻¹Aᵀ',0,'Áp dụng công thức fitted vector b̂=A x̂.');
+add('Ch 7 · Hình chiếu','Ma trận chiếu P lên Col(A) luôn có tính chất:','P²=P','P²=I','Pᵀ=−P','P khả nghịch',0,'Chiếu lặp lại không đổi kết quả.');
+add('Ch 7 · Đối xứng','Ma trận chiếu trực giao lên Col(A) còn thỏa:','Pᵀ=P','Pᵀ=−P','P⁻¹=P','det(P)=1',0,'Phép chiếu trực giao có ma trận đối xứng.');
+add('Ch 7 · Phần dư','Trong least squares, phần dư b−b̂ thuộc:','Col(A)⊥','Col(A)','Row(A)','Nul(Aᵀ)⊥',0,'Aᵀ(b−b̂)=0 nên phần dư thuộc Col(A)⊥.');
+add('Ch 7 · Hồi quy','Trong hồi quy tuyến tính, các hệ số mô hình thường được tìm bằng:','Least squares','Gram–Schmidt bắt buộc','Eigenvalue lớn nhất','DFT ngược',0,'Ước lượng hệ số bằng cách tối thiểu tổng bình phương sai số.');
+add('Ch 7 · Đường thẳng','Dữ liệu (0,1),(1,3) nằm chính xác trên đường y=c+mx. m bằng:','2','1','3','−2',0,'Độ dốc (3−1)/(1−0)=2.');
+add('Ch 7 · QR','Nếu A=QR với QᵀQ=I, phương trình least squares rút về:','Rx̂=Qᵀb','Rᵀx̂=Qb','Qx̂=Rb','RᵀRx̂=b luôn',0,'Từ min||QRx−b||, nhân Qᵀ và dùng tính trực chuẩn.');
+add('Ch 7 · So sánh sai số','Least squares chọn x̂ sao cho:','||b−Ax̂||≤||b−Ax|| với mọi x','Ax̂=b luôn','x̂ có chuẩn nhỏ nhất luôn','b−Ax̂=0 luôn',0,'Định nghĩa tối ưu của nghiệm least squares.');
+add('Ch 7 · Không gian cột','Nếu b∈Col(A), giá trị nhỏ nhất của ||Ax−b|| là:','0','1','||b||','Không xác định',0,'Có nghiệm chính xác Ax=b nên phần dư bằng 0.');
+add('Ch 7 · Bất khả nghịch','AᵀA khả nghịch khi:','Các cột A độc lập','Các hàng A độc lập luôn đủ','A vuông bất kỳ','b≠0',0,'xᵀAᵀAx=||Ax||²; null(A)={0} tương đương hạng cột đầy đủ.');
+add('Ch 7 · Phép chiếu','Nếu P chiếu trực giao lên không gian W và z∈W thì:','Pz=z','Pz=0','Pz=−z','Pz=z/2',0,'Phép chiếu giữ mọi vectơ trong W.');
+add('Ch 7 · Ma trận chiếu','Nếu P chiếu lên W, với z∈W⊥ thì:','Pz=0','Pz=z','Pz=−z','Pz không xác định',0,'Thành phần vuông góc bị phép chiếu lên W triệt tiêu.');
+add('Ch 7 · Hạng','A là 3×2 có hai cột độc lập. Số nghiệm least squares với mọi b là:','Đúng một','Không có','Vô số','Chỉ khi b∈Col(A)',0,'AᵀA khả nghịch nên nghiệm hệ số duy nhất với mọi b.');
+add('Ch 7 · Mục tiêu','Min ||Ax−b|| và min ||Ax−b||² có cùng nghiệm không?','Có','Không','Chỉ khi A vuông','Chỉ khi b=0',0,'Bình phương là hàm tăng trên các giá trị không âm nên giữ nguyên điểm cực tiểu.');
+// Ch 8A: complex numbers and DFT (46–70)
+add('Ch 8A · Số phức','i² bằng:','−1','1','i','−i',0,'Định nghĩa đơn vị ảo.');
+add('Ch 8A · Số phức','(2+3i)+(1−i) bằng:','3+2i','1+4i','3+4i','2+2i',0,'Cộng phần thực và phần ảo riêng.');
+add('Ch 8A · Số phức','(1+i)(1−i) bằng:','2','0','1−i','2i',0,'Dùng hiệu hai bình phương: 1−i²=2.');
+add('Ch 8A · Liên hợp','Liên hợp của 3−4i là:','3+4i','−3−4i','−3+4i','4+3i',0,'Liên hợp đổi dấu phần ảo.');
+add('Ch 8A · Môđun','|3−4i| bằng:','5','7','1','25',0,'Môđun √(3²+4²)=5.');
+add('Ch 8A · Chia phức','1/i bằng:','−i','i','−1','1+i',0,'Nhân cả tử và mẫu với −i; i(−i)=1.');
+add('Ch 8A · Dạng cực','−1+i có argument chính:','3π/4','π/4','−π/4','π',0,'Điểm ở góc phần tư II, góc tham chiếu π/4.');
+add('Ch 8A · Euler','e^{iθ} bằng:','cosθ+i sinθ','sinθ+i cosθ','cosθ−i sinθ','1+iθ',0,'Công thức Euler.');
+add('Ch 8A · De Moivre','(cosθ+i sinθ)^n bằng:','cos(nθ)+i sin(nθ)','cosθ+i sin(nθ)','n cosθ+i n sinθ','cos(θⁿ)+i sin(θⁿ)',0,'Định lý De Moivre nhân góc với n.');
+add('Ch 8A · Luỹ thừa','(1+i)^2 bằng:','2i','2','1+i','−2i',0,'Khai triển: 1+2i+i²=2i.');
+add('Ch 8A · Căn','Các căn bậc hai của 1 là:','1 và −1','i và −i','1 và i','Chỉ 1',0,'Cả hai số bình phương thành 1.');
+add('Ch 8A · Số phức','Nếu z=a+ib thì z z̄ bằng:','a²+b²','a²−b²','2ab i','a+b',0,'(a+ib)(a−ib)=a²+b².');
+add('Ch 8A · Inner product','Với quy ước ⟨u,v⟩=vᴴu, tích trong của vector phức có dạng:','Tuyến tính theo u','Tuyến tính theo v','Không có liên hợp','Luôn là số thực',0,'Theo đúng quy ước đã nêu trong handbook: linear in first argument.');
+add('Ch 8A · Hermitian','Chuyển vị liên hợp Aᴴ được tạo bằng:','Chuyển vị rồi lấy liên hợp phức','Chỉ đổi dấu ma trận','Chỉ chuyển vị','Nghịch đảo rồi liên hợp',0,'Aᴴ=conjugate transpose.');
+add('Ch 8A · Căn đơn vị','Các căn bậc N của 1 nằm:','Đều trên đường tròn đơn vị','Trên trục thực dương','Trên trục ảo','Trên đường thẳng y=x',0,'Các căn có môđun 1 và góc 2πk/N.');
+add('Ch 8A · DFT','Trong DFT, W thường là:','Ma trận Fourier phức','Ma trận chiếu lên Col(A)','Ma trận tam giác','Ma trận đường chéo trị riêng',0,'W chứa các luỹ thừa của căn đơn vị.');
+add('Ch 8A · DFT','Theo quy ước trong tài liệu, biến đổi DFT là:','X=Wx','x=WX','X=Wᴴx/N','X=W⁻¹x/N',0,'Quy ước: X=Wx và nghịch đảo x=(1/N)WᴴX.');
+add('Ch 8A · DFT ngược','Với quy ước X=Wx, công thức biến đổi ngược là:','x=(1/N)WᴴX','x=WX','x=WᵀX','x=NWᴴX',0,'WᴴW=NI nên nghịch đảo là Wᴴ/N.');
+add('Ch 8A · DFT','Nếu N=4 và x=(1,0,0,0), DFT X là:','(1,1,1,1)','(0,1,0,1)','(1,0,0,0)','(4,0,0,0)',0,'Mỗi hàng W nhân vector x chỉ lấy phần tử đầu tiên bằng 1.');
+add('Ch 8A · DFT','Tín hiệu hằng x[n]=1 với N mẫu có DFT tập trung ở:','Tần số 0 (DC)','Tần số cao nhất','Mọi tần số bằng nhau, khác 0','Không có thành phần',0,'Tổng các căn đơn vị triệt tiêu ở mọi bin khác DC.');
+add('Ch 8A · DFT','Tổng của các N căn đơn vị liên tiếp bằng:','0 nếu N>1','N','1','−1',0,'Cấp số nhân với tổng bằng 0 khi căn không bằng 1.');
+add('Ch 8A · DFT','DFT biểu diễn tín hiệu rời rạc như tổ hợp của:','Các thành phần sinusoids phức','Chỉ đa thức','Các eigenvectors thực bất kỳ','Các đường thẳng',0,'Các cột ma trận Fourier là các sinusoids phức.');
+add('Ch 8A · DFT','Nếu X[k] lớn tại một bin k, diễn giải phù hợp nhất là:','Có thành phần tần số tương ứng đáng kể','x[k] chắc chắn bằng X[k]','Tín hiệu không thực','Ma trận W suy biến',0,'Độ lớn phổ cho biết mức hiện diện của tần số đó.');
+add('Ch 8A · DFT','Ma trận DFT chuẩn hoá theo quy ước X=Wx thỏa:','WᴴW=NI','WᴴW=I','W²=I','WᵀW=0',0,'Các cột trực giao và có bình phương chuẩn N.');
+add('Ch 8A · DFT','Trong công thức W[k,n]=exp(−i2πkn/N), chỉ số k thường đại diện cho:','Bin tần số','Mẫu thời gian đầu vào','Độ dài vector','Biên độ duy nhất',0,'k đánh chỉ số thành phần phổ/tần số.');
+// Ch 8: eigenvalues and basis changes (71–95)
+add('Ch 8 · Eigenvalue','Định nghĩa eigenvector:','Av=λv với v≠0','Av=0 với mọi v','Aᵀv=λ','A=λI bắt buộc',0,'Eigenvector khác không chỉ đổi độ lớn/hướng dấu dưới tác động A.');
+add('Ch 8 · Tìm trị riêng','Phương trình đặc trưng là:','det(A−λI)=0','det(A+I)=λ','Aλ=0','det(A)=λ',0,'Trị riêng khiến A−λI suy biến.');
+add('Ch 8 · Ma trận đường chéo','Trị riêng của diag(2,5) là:','2 và 5','7 và 0','10 và 1','−2 và −5',0,'Các phần tử đường chéo là trị riêng.');
+add('Ch 8 · Ma trận tam giác','Trị riêng của ma trận tam giác là:','Các phần tử đường chéo','Các phần tử ngoài đường chéo','Tổng từng hàng','Định thức từng hàng',0,'Định thức A−λI là tích các phần tử đường chéo đó trừ λ.');
+add('Ch 8 · Định thức','Tích các trị riêng của ma trận vuông bằng:','det(A)','trace(A)','rank(A)','||A||',0,'Định thức là tích trị riêng tính cả bội đại số.');
+add('Ch 8 · Trace','Tổng các trị riêng của A bằng:','trace(A)','det(A)','rank(A)','0 luôn',0,'Trace là tổng các trị riêng tính cả bội.');
+add('Ch 8 · Không gian riêng','Không gian riêng ứng với λ là:','Nul(A−λI)','Col(A−λI)','Nul(Aᵀ−λI)','Col(A)',0,'Giải (A−λI)v=0.');
+add('Ch 8 · Bội','Một trị riêng lặp có thể có bao nhiêu vectơ riêng độc lập?','Ít hơn hoặc bằng bội đại số','Luôn đúng bằng bội đại số','Luôn bằng 1','Vô hạn độc lập',0,'Bội hình học không vượt bội đại số.');
+add('Ch 8 · Diagonalisation','A diagonalizable nếu tồn tại:','A=PDP⁻¹ với P khả nghịch','A=P+D','A=P⁻¹DP với mọi P','A=D²',0,'Các cột P là một cơ sở vectơ riêng.');
+add('Ch 8 · P','Trong A=PDP⁻¹, các cột của P là:','Eigenvectors độc lập của A','Eigenvalues của A','Các hàng của D','Vectơ phần dư',0,'Mỗi cột là eigenvector tương ứng đường chéo D.');
+add('Ch 8 · D','Trong A=PDP⁻¹, D chứa:','Các trị riêng trên đường chéo','Các eigenvectors theo hàng','A nghịch đảo','Các vectơ cơ sở chuẩn',0,'D gom các trị riêng theo thứ tự các cột P.');
+add('Ch 8 · Lũy thừa','Nếu A=PDP⁻¹ thì Aⁿ bằng:','PDⁿP⁻¹','PⁿDP⁻¹','PD P⁻ⁿ','Dⁿ',0,'Các P⁻¹P liền nhau triệt tiêu khi nhân lặp.');
+add('Ch 8 · Luỹ thừa','Nếu λ là trị riêng của A với eigenvector v thì A³v bằng:','λ³v','3λv','λv³','Aλv',0,'Áp dụng Av=λv liên tiếp ba lần.');
+add('Ch 8 · Ma trận đơn vị','Mọi vectơ khác không là eigenvector của I với trị riêng:','1','0','−1','Không có trị riêng',0,'Iv=v.');
+add('Ch 8 · Ma trận không','Trị riêng duy nhất của ma trận không là:','0','1','−1','Không xác định',0,'0v=0v với mọi v khác không.');
+add('Ch 8 · Ma trận khả nghịch','Nếu A khả nghịch và λ là trị riêng của A thì λ:','Khác 0','Bằng 0','Bằng 1','Luôn phức không thực',0,'Nếu λ=0 thì Av=0 với v khác 0, mâu thuẫn khả nghịch.');
+add('Ch 8 · Nghịch đảo','Nếu Av=λv và λ≠0 thì A⁻¹v bằng:','(1/λ)v','λv','−λv','0',0,'Nhân A⁻¹ hai phía cho Av=λv.');
+add('Ch 8 · Đa thức','Nếu λ là trị riêng của A, trị riêng tương ứng của A² là:','λ²','2λ','λ+2','1/λ',0,'A²v=A(λv)=λ²v.');
+add('Ch 8 · Độc lập','Eigenvectors ứng với các trị riêng phân biệt đôi một thì:','Độc lập tuyến tính','Trực giao luôn','Có cùng chuẩn','Tạo cơ sở toàn Rⁿ luôn',0,'Độc lập tuyến tính; không nhất thiết trực giao hay đủ n vectơ.');
+add('Ch 8 · Đối xứng','Ma trận thực đối xứng có tính chất nào?','Có thể chéo hoá trực giao','Mọi trị riêng đều phức không thực','Không có eigenvector','Luôn khả nghịch',0,'Định lý phổ: có cơ sở trực chuẩn eigenvectors.');
+add('Ch 8 · Bội đại số','Ma trận n×n có n trị riêng phân biệt thì:','Diagonalizable','Không thể chéo hoá','Phải đối xứng','Phải là ma trận đơn vị',0,'n eigenvectors độc lập tạo thành cơ sở.');
+add('Ch 8 · Đổi cơ sở','Nếu P có các vectơ cơ sở mới làm cột, toạ độ x trong cơ sở mới liên hệ với chuẩn tắc bởi:','x=P[x]₍new₎','[x]₍new₎=P x','x=Pᵀ[x]₍new₎ luôn','[x]₍new₎=P⁻¹x chỉ khi P đối xứng',0,'Vectơ thực x là tổ hợp cột P với hệ số là toạ độ mới.');
+add('Ch 8 · Đổi cơ sở','Toạ độ của x theo cơ sở có ma trận cột P là:','P⁻¹x','Px','Pᵀx với mọi P','xP',0,'Từ x=P c suy ra c=P⁻¹x.');
+add('Ch 8 · Biến đổi','Ma trận biểu diễn T trong cơ sở mới P, nếu A là biểu diễn chuẩn tắc, là:','P⁻¹AP','PAP⁻¹','PᵀAP luôn','A+P',0,'Đổi toạ độ vào chuẩn tắc bằng P, áp dụng A, rồi đổi lại bằng P⁻¹.');
+add('Ch 8 · Eigenvalues phức','Ma trận thực có một trị riêng phức a+bi (b≠0) thì cũng có:','a−bi','−a+bi','−a−bi','Không có trị riêng khác',0,'Đa thức đặc trưng hệ số thực có nghiệm phức theo cặp liên hợp.');
+// Mixed review (96–100)
+add('Tổng hợp','Nếu QᵀQ=I và A=QR, điều nào đúng?','||Qx||=||x||','Q luôn vuông','QQᵀ=I luôn','R luôn đối xứng',0,'Q bảo toàn chuẩn trên miền hệ số vì QᵀQ=I.');
+add('Tổng hợp','Nếu Π là phép chiếu trực giao, eigenvalues khả dĩ của Π là:','0 hoặc 1','−1 hoặc 1','Mọi số thực','Chỉ 1',0,'Π²=Π nên λ²=λ.');
+add('Tổng hợp','A có eigenvalues 2,−1,3. trace(A) bằng:','4','−6','6','−2',0,'Tổng trị riêng 2−1+3=4.');
+add('Tổng hợp','A có eigenvalues 2,−1,3. det(A) bằng:','−6','4','6','−2',0,'Tích trị riêng 2·(−1)·3=−6.');
+add('Tổng hợp','Điểm chung của DFT và diagonalisation là ý tưởng nào?','Đổi sang một cơ sở thuận tiện để biểu diễn phép toán','Cả hai chỉ dùng số thực','Cả hai là least squares','Cả hai yêu cầu ma trận đối xứng',0,'DFT phân tích theo cơ sở sinusoids; diagonalisation dùng cơ sở eigenvectors.');
+
+if(Q.length!==100){document.body.innerHTML='<pre>Question bank error: '+Q.length+'</pre>';throw Error('Expected 100 questions, got '+Q.length)}
+const KEY='sc1004-quiz2-answers-v1';let answers=JSON.parse(localStorage.getItem(KEY)||'{}');let submitted=false,onlyBlank=false;
+const labels=['A','B','C','D'];
+function render(){const root=document.getElementById('quiz');root.innerHTML='';Q.forEach((q,i)=>{const card=document.createElement('section');card.className='card';card.id='q'+(i+1);if(onlyBlank&&answers[i]!==undefined)card.style.display='none';const head=document.createElement('div');head.className='qhead';head.innerHTML='<span class="qnum">Câu '+(i+1)+'</span><span class="topic"></span>';head.querySelector('.topic').textContent=q.t;card.append(head);const stem=document.createElement('div');stem.className='stem';stem.textContent=q.s;card.append(stem);const choices=document.createElement('div');choices.className='choices';q.o.forEach((o,j)=>{const lab=document.createElement('label');lab.className='choice';const inp=document.createElement('input');inp.type='radio';inp.name='q'+i;inp.value=j;inp.checked=answers[i]===j;inp.disabled=submitted;inp.addEventListener('change',()=>{answers[i]=j;localStorage.setItem(KEY,JSON.stringify(answers));updateProgress()});const txt=document.createElement('span');txt.textContent=labels[j]+'. '+o;lab.append(inp,txt);choices.append(lab)});card.append(choices);const fb=document.createElement('div');fb.className='feedback';fb.id='fb'+i;if(submitted){fb.classList.add('show',answers[i]===q.k?'ok':'no');fb.innerHTML='<strong>'+(answers[i]===q.k?'Đúng ✓':'Sai · Đáp án '+labels[q.k])+ '</strong><br>'+escapeHtml(q.e);card.append(fb);card.querySelectorAll('.choice').forEach((lab,j)=>{if(j===q.k)lab.style.borderColor='var(--green)';if(answers[i]===j&&j!==q.k)lab.style.borderColor='var(--red)'})}root.append(card)});updateProgress()}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function updateProgress(){const n=Object.keys(answers).length;document.getElementById('progressText').textContent='Đã trả lời '+n+'/100';document.getElementById('answeredText').textContent=n+'%';document.getElementById('progressBar').style.width=n+'%'}
+function submit(){if(submitted){document.getElementById('result').scrollIntoView({behavior:'smooth'});return}const missing=Q.findIndex((_,i)=>answers[i]===undefined);if(missing>=0){if(!confirm('Bạn còn '+Object.keys(answers).length+'/100 câu chưa trả lời. Nộp bài và để trống các câu còn lại?')){document.getElementById('q'+(missing+1)).scrollIntoView({behavior:'smooth'});return}}submitted=true;render();const correct=Q.reduce((n,q,i)=>n+(answers[i]===q.k?1:0),0),blank=100-Object.keys(answers).length;const pct=correct;let groups={};Q.forEach((q,i)=>{groups[q.t.split(' · ')[0]]??={c:0,n:0};groups[q.t.split(' · ')[0]].n++;if(answers[i]===q.k)groups[q.t.split(' · ')[0]].c++});let weak=Object.entries(groups).map(([k,v])=>`<span class="pill">${k}: ${v.c}/${v.n}</span>`).join('');const wrong=Q.map((q,i)=>({q,i})).filter(x=>answers[x.i]!==x.q.k);document.getElementById('result').innerHTML=`<h2>Kết quả</h2><div class="score">${correct}/100 · ${pct}%</div><p>${pct>=80?'Rất tốt — bạn đã nắm khá chắc nội dung.':pct>=60?'Khá ổn — hãy xem lại các câu sai bên dưới.':'Hãy dùng phần giải thích để ôn lại các chủ đề còn yếu.'}</p><div class="metrics"><span class="pill">Đúng: ${correct}</span><span class="pill">Sai: ${Object.keys(answers).length-correct}</span><span class="pill">Bỏ trống: ${blank}</span></div><h3>Điểm theo chương</h3><div class="metrics">${weak}</div><h3>Câu cần xem lại (${wrong.length})</h3>${wrong.length?'<ol class="reviewlist">'+wrong.map(({q,i})=>`<li><a href="#q${i+1}">Câu ${i+1}</a> — đáp án ${labels[q.k]}: ${escapeHtml(q.o[q.k])}</li>`).join('')+'</ol>':'<p>Không có câu sai. Tuyệt vời!</p>'}<button class="action" onclick="window.print()">In / lưu kết quả</button>`;document.getElementById('result').classList.add('show');document.getElementById('result').scrollIntoView({behavior:'smooth'})}
+function reset(){if(!confirm('Xóa toàn bộ đáp án và bắt đầu lại?'))return;answers={};submitted=false;onlyBlank=false;localStorage.removeItem(KEY);document.getElementById('result').classList.remove('show');render();window.scrollTo({top:0,behavior:'smooth'})}
+document.getElementById('submitTop').onclick=submit;document.getElementById('submitBottom').onclick=submit;document.getElementById('resetTop').onclick=reset;document.getElementById('resetBottom').onclick=reset;document.getElementById('filterTop').onclick=()=>{onlyBlank=!onlyBlank;document.getElementById('filterTop').textContent=onlyBlank?'Hiện tất cả câu':'Chỉ xem câu chưa làm';render()};render();
+</script></body></html>
